@@ -1,0 +1,63 @@
+#wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            /* CORRECTION ICI : La roue démarre décalée de la moitié d'une case pour être centrée sous la flèche */
+            transform: rotate(-4.86deg);
+            transition: transform 6s cubic-bezier(0.15, 0, 0.05, 1);
+            background: conic-gradient(
+                #27ae60 0deg 9.73deg,
+                #c0392b 9.73deg 19.46deg,
+                #1a1a1a 19.46deg 29.19deg,
+                #c0392b 29.19deg 38.92deg,
+                #1a1a1a 38.92deg 48.65deg,
+                #c0392b 48.65deg 58.38deg,
+                #1a1a1a 58.38deg 68.11deg,
+                #c0392b 68.11deg 77.84deg,
+                #1a1a1a 77.84deg 87.57deg,
+                #c0392b 87.57deg 97.3deg,
+                #1a1a1a 97.3deg 107.03deg,
+                #c0392b 107.03deg 116.76deg,
+                #1a1a1a 116.76deg 126.49deg,
+                #c0392b 126.49deg 136.22deg,
+                #1a1a1a 126.49deg 145.95deg,
+                #c0392b 145.95deg 155.68deg,
+                #1a1a1a 155.68deg 165.41deg,
+                #c0392b 165.41deg 175.14deg,
+                #1a1a1a 175.14deg 184.87deg,
+                #c0392b 184.87deg 194.6deg,
+                #1a1a1a 194.6deg 204.33deg,
+                #c0392b 204.33deg 214.06deg,
+                #1a1a1a 214.06deg 223.79deg,
+                #c0392b 223.79deg 233.52deg,
+                #1a1a1a 233.52deg 243.25deg,
+                #c0392b 243.25deg 252.98deg,
+                #1a1a1a 252.98deg 262.71deg,
+                #c0392b 262.71deg 272.44deg,
+                #1a1a1a 272.44deg 282.17deg,
+                #c0392b 282.17deg 291.9deg,
+                #1a1a1a 291.9deg 301.63deg,
+                #c0392b 301.63deg 311.36deg,
+                #1a1a1a 311.36deg 321.09deg,
+                #c0392b 321.09deg 330.82deg,
+                #1a1a1a 330.82deg 340.55deg,
+                #c0392b 340.55deg 350.28deg,
+                #1a1a1a 350.28deg 360deg
+            );
+        }/* ... tout ton CSS pour main, article, roulette, etc. est ici ... */
+        
+    </style> </head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil / Roulette</a></li>
+                <li><a href="tweets.html">Tweets</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>

@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Casino Royal - Roulette</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --green-carpet: radial-gradient(circle, #1a472a 0%, #071a10 100%);
+            --gold-gradient: linear-gradient(145deg, #f1c40f 0%, #d4af37 50%, #8a6d1c 100%);
+            --wood-border: #3e2723;
+        }
+
+        body {
+            background: var(--green-carpet);
+            color: white;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- STYLES DES BALISES STRUCTURELLES OBLIGATOIRES --- */
+        header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 20px;
+            border-bottom: 2px solid #8a6d1c;
+            z-index: 100;
+        }
+
+        header ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        header ul li a {
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        header ul li a:hover {
+            color: white;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            position: relative;
+            padding: 20px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
+        }
+
+        article {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        aside {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: sans-serif;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #aaa;
+            z-index: 10;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            padding: 15px;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            border-top: 1px solid #3e2723;
+            color: #ccc;
+            z-index: 100;
+        }
+
+        footer a {
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- STYLES DU JEU DE LA ROULETTE --- */
+        h1 {
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5));
+            margin: 0 0 5px 0;
+        }
+
+        #display {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 25px;
+            height: 55px;
+            color: #f1c40f;
+            text-shadow: 0 0 20px rgba(241, 196, 15, 0.6);
+            background: rgba(0,0,0,0.4);
+            padding: 8px 35px;
+            border-radius: 50px;
+            border: 1px solid rgba(241, 196, 15, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 300px;
+        }
+
+        .deck-decor {
+            position: absolute;
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            height: 250px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .decor-card {
+            position: absolute;
+            width: 120px;
+            height: 175px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+        }
+        .card-back { background: #990000; border: 5px solid white; }
+        .card1 { transform: rotate(-20deg); left: 0; top: 20px; }
+        .card2 { transform: rotate(-5deg); left: 35px; top: 5px; }
+        .card3 { transform: rotate(15deg); left: 70px; top: 0; color: #c0392b; }
+        .card-suit { font-size: 2.2rem; text-align: center; }
+
+        .dice-decor {
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .decor-die {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            background: #c0392b;
+            border-radius: 6px;
+            box-shadow: 3px 5px 10px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+        .die1 { transform: rotate(15deg); left: 0; top: 0; }
+        .die2 { transform: rotate(-25deg); left: 50px; top: 40px; background: #b02316; }
+
+        .casino-table {
+            position: relative;
+            padding: 25px;
+            background: #231209;
+            border-radius: 50%;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9), inset 0 0 30px rgba(0,0,0,0.7);
+            border: 14px solid #140a05;
+        }
+
+        .roulette-wrapper {
+            position: relative;
+            width: 440px;
+            height: 440px;
+            border: 16px solid var(--wood-border);
+            border-radius: 50%;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.9);
+            background: #111;
+        }
+
+        .arrow {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 45px solid #f1c40f;
+            z-index: 100;
+            filter: drop-shadow(0 0 8px rgba(241,196,15,0.9));
+        }
+
+        .center-hub {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90px; height: 90px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            z-index: 20;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6), inset 0 2px 5px rgba(255,255,255,0.5);
+            border: 2px solid #684a0c;
+        }
+        .center-hub::after {
+            content: "";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px; height: 30px;
+            background: #8a6d1c;
+            border-radius: 50%;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        #wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+            transform: rotate(-4.86deg);
+            transition: transform 6s cubic-bezier(0.15, 0, 0.05, 1);
+            background: conic-gradient(
+                #27ae60 0deg 9.73deg, #c0392b 9.73deg 19.46deg, #1a1a1a 19.46deg 29.19deg,
+                #c0392b 29.19deg 38.92deg, #1a1a1a 38.92deg 48.65deg, #c0392b 48.65deg 58.38deg,
+                #1a1a1a 58.38deg 68.11deg, #c0392b 68.11deg 77.84deg, #1a1a1a 77.84deg 87.57deg,
+                #c0392b 87.57deg 97.3deg, #1a1a1a 97.3deg 107.03deg, #c0392b 107.03deg 116.76deg,
+                #1a1a1a 116.76deg 126.49deg, #c0392b 126.49deg 136.22deg, #1a1a1a 136.22deg 145.95deg,
+                #c0392b 145.95deg 155.68deg, #1a1a1a 155.68deg 165.41deg, #c0392b 165.41deg 175.14deg,
+                #1a1a1a 175.14deg 184.87deg, #c0392b 184.87deg 194.6deg, #1a1a1a 194.6deg 204.33deg,
+                #c0392b 204.33deg 214.06deg, #1a1a1a 214.06deg 223.79deg, #c0392b 223.79deg 233.52deg,
+                #1a1a1a 233.52deg 243.25deg, #c0392b 243.25deg 252.98deg, #1a1a1a 252.98deg 262.71deg,
+                #c0392b 262.71deg 272.44deg, #1a1a1a 272.44deg 282.17deg, #c0392b 282.17deg 291.9deg,
+                #1a1a1a 291.9deg 301.63deg, #c0392b 301.63deg 311.36deg, #1a1a1a 311.36deg 321.09deg,
+                #c0392b 321.09deg 330.82deg, #1a1a1a 330.82deg 340.55deg, #c0392b 340.55deg 350.28deg,
+                #1a1a1a 350.28deg 360deg
+            );
+        }
+
+        .number-label {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 30px;
+            height: 50%;
+            margin-left: -15px;
+            transform-origin: bottom center;
+            display: flex;
+            justify-content: center;
+            padding-top: 15px;
+            box-sizing: border-box;
+            font-weight: bold;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        button {
+            margin-top: 35px;
+            padding: 15px 50px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            background: var(--gold-gradient);
+            color: #1a0f0a;
+            border: none;
+            border-radius: 4px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 8px 0 #8a6d1c, 0 15px 25px rgba(0,0,0,0.5);
+            transition: all 0.1s;
+        }
+        button:hover { filter: brightness(1.1); }
+        button:active { transform: translateY(5px); box-shadow: 0 3px 0 #8a6d1c, 0 8px 10px rgba(0,0,0,0.5); }
+        button:disabled { filter: grayscale(0.8); opacity: 0.6; transform: translateY(5px); box-shadow: none; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil / Roulette</a></li>
+                <li><a href="tweets.html">Tweets</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="deck-decor">
+            <div class="decor-card card-back card1"></div>
+            <div class="decor-card card-back card2"></div>
+            <div class="decor-card card3">
+                <div>A</div>
+                <div class="card-suit">♦</div>
+                <div style="transform: rotate(180deg);">A</div>
+            </div>
+        </div>
+
+        <div class="dice-decor">
+            <div class="decor-die die1">⚄</div>
+            <div class="decor-die die2">⚂</div>
+        </div>
+
+        <article>
+            <h1>ROULETTE ROYALE</h1>
+            <div id="display">Appuyez sur SPIN</div>
+
+            <div class="casino-table">
+                <div class="roulette-wrapper">
+                    <div class="arrow"></div>
+                    <div class="center-hub"></div>
+                    <div id="wheel"></div>
+                </div>
+            </div>
+
+            <button id="spinBtn" onclick="spin()">SPIN</button>
+        </article>
+
+        <aside>
+            <p>placeholder to add comment thread later</p>
+        </aside>
+    </main>
+
+    <footer>
+        <p>Réalisé par Loïc Avrinhac pour <a href="https://apply.holbertonschool.com" target="_blank">Holberton School</a></p>
+    </footer>
+
+    <script>
+        const numbers = [0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26];
+        const wheel = document.getElementById('wheel');
+        const display = document.getElementById('display');
+        const spinBtn = document.getElementById('spinBtn');
+        const degPerSlice = 360 / 37;
+        let currentRotation = 0;
+
+        function initWheel() {
+            if (!wheel) return;
+            wheel.innerHTML = "";
+            numbers.forEach((num, i) => {
+                const label = document.createElement('div');
+                label.className = 'number-label';
+                label.style.transform = `rotate(${(i * degPerSlice) + (degPerSlice / 2)}deg)`;
+                label.innerText = num;
+                wheel.appendChild(label);
+            });
+        }
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playClick() {
+            const osc = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            osc.connect(g); g.connect(audioCtx.destination);
+            osc.type = 'sine'; osc.frequency.setValueAtTime(160, audioCtx.currentTime);
+            g.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.08);
+        }
+
+        function spin() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            if (spinBtn) spinBtn.disabled = true;
+            if (display) {
+                display.innerText = "La bille tourne...";
+                display.style.color = "#f1c40f";
+            }
+
+            const winningIndex = Math.floor(Math.random() * 37);
+            const winningNumber = numbers[winningIndex];
+
+            const extraSpins = 6 * 360; 
+            const targetAngle = 360 - (winningIndex * degPerSlice);
+            
+            currentRotation += extraSpins + (targetAngle - (currentRotation % 360)) - 4.86;
+            if (wheel) wheel.style.transform = `rotate(${currentRotation}deg)`;
+
+            let clicks = 0;
+            let currentDelay = 50;
+            let shouldPlaySound = true;
+
+            setTimeout(() => { shouldPlaySound = false; }, 5700);
+
+            function runSound() {
+                if (shouldPlaySound && clicks < 50) {
+                    playClick();
+                    clicks++;
+                    currentDelay += clicks * 0.45; 
+                    setTimeout(runSound, currentDelay);
+                }
+            }
+            runSound();
+
+            setTimeout(() => {
+                let col = winningNumber === 0 ? "VERT" : ([1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36].includes(winningNumber) ? "ROUGE" : "NOIR");
+                
+                if (display) {
+                    if (col === "ROUGE") display.style.color = "#ff4d4d";
+                    else if (col === "VERT") display.style.color = "#2ecc71";
+                    else display.style.color = "#ffffff";
+
+                    display.innerText = `N° ${winningNumber} (${col})`;
+                }
+                if (spinBtn) spinBtn.disabled = false;
+            }, 6000); 
+        }
+
+        initWheel();
+    </script>
+</body>
+</html>

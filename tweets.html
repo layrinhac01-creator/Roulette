@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Casino Royale - Tweets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle, #1a472a 0%, #071a10 100%);
+            color: white;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-bottom: 2px solid #8a6d1c;
+            z-index: 100;
+        }
+        header ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        header ul li a {
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+        }
+        header ul li a:hover {
+            color: white;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        article {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #8a6d1c;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        h1 {
+            color: #f1c40f;
+            margin-top: 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        /* Style du bouton pour voir le Tweet */
+        .tweet-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #1da1f2; /* Couleur X/Twitter */
+            color: white;
+            text-decoration: none;
+            font-family: sans-serif;
+            font-weight: bold;
+            border-radius: 25px;
+            box-shadow: 0 4px 15px rgba(29, 161, 242, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .tweet-button:hover {
+            background: #1a91da;
+            transform: scale(1.05);
+        }
+        aside {
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-family: sans-serif;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            text-align: center;
+            padding: 15px;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            border-top: 1px solid #3e2723;
+            color: #ccc;
+        }
+        footer a {
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil / Roulette</a></li>
+                <li><a href="tweets.html">Tweets</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h1>Fil d'actualité</h1>
+            <p>Découvrez les dernières réactions et discussions à propos de notre Casino en ligne !</p>
+            
+            <a href="https://x.com/MAGA_X_Times/status/2052059779053306240?s=20" target="_blank" class="tweet-button">
+                Voir le Tweet sur X
+            </a>
+        </article>
+    </main>
+
+    <footer>
+        <p>Réalisé par Loïc Avrinhac pour <a href="https://apply.holbertonschool.com" target="_blank">Holberton School</a></p>
+    </footer>
+
+</body>
+</html>
